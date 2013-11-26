@@ -25,6 +25,7 @@ word_length = word.length
 letter_dashes = ('_') * word_length
 @word_blanks = letter_dashes.split('')
 puts @word_blanks.join
+puts word
 
 letters_index = {}
 @letters_used = []
