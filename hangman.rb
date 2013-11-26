@@ -1,14 +1,24 @@
 #!/usr/bin/env ruby
 require 'pry'
+
+def win_or_lose(word_blanks, word)
+if word_blanks.join == word
+  puts''
+  puts "Congrats you guessed correct you win!"
+else 
+  puts''
+  puts "Out of turns you lose! haha!!!".upcase
+end
+end
+
 word_bank = ["launch", "steelers", "Academy", "Ruby", "Rails", "Coding", 
 "bosotn", "Austin", "cool", "fun"]
-letter_places=[]
+
 puts "Welcome to Hangman!"
-  word = word_bank.sample.downcase
-  word_letters = word.split('')
-  chances = word_letters.length + 5
-
-
+ 
+word = word_bank.sample.downcase
+word_letters = word.split('')
+chances = word_letters.length + 5
 
 
 word_length = word.length
@@ -26,15 +36,16 @@ word_letters.each_with_index do |item, index|
 end
 
 until @word_blanks.join == word || chances == 0
-puts "Number of Chances Remaining: #{chances}"
-puts "Guess a letter (a-z) or a entire word"
-guess=gets.chomp  
+  puts "Number of Chances Remaining: #{chances}"
+  puts "Guess a letter (a-z) or a entire word"
+  guess=gets.chomp  
 if word_letters.include?(guess)
-    letters_index_in_word = letters_index[guess]
-    letters_index_in_word.each do |index|
-    @word_blanks[index].replace(guess)
-  end
+  letters_index_in_word = letters_index[guess]
+  letters_index_in_word.each do |index|
+  @word_blanks[index].replace(guess)
+end
   print @word_blanks.join.upcase
+  puts ''
 end
 if !word_letters.include?(guess)
   chances -= 1
@@ -44,22 +55,18 @@ if !word_letters.include?(guess)
   @letters_used << guess
   print @word_blanks.join.upcase
 end
-  if @letters_used.count > 1
-    puts ''
-    puts "Letters Used: #{@letters_used.join(",").upcase}"
-  elsif @letters_used.count == 1
-    puts ''
-    puts "Letters Used: #{@letters_used}"
+if @letters_used.count > 1
+  puts ''
+  puts "Letters Used: #{@letters_used.join(",").upcase}"
+elsif @letters_used.count == 1
+  puts ''
+  puts "Letters Used: #{@letters_used.join('').upcase}"
   end
 end
 
-if @word_blanks.join == word
-  puts''
-  puts "Congrats you guessed correct you win!"
-else 
-  puts''
-  puts "Out of turns you lose! haha".upcase
-end
+win_or_lose(@word_blanks, word)
+
+
 
 
 
